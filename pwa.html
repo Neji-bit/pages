@@ -1,17 +1,36 @@
 PWA
 
 <script>
-  alert("Start")
-  if("Notification" in window) {
-    alert("Notification is here.")
-  } else {
-    alert("Nothing...")
+  window.onload = () => { init() }                                       
+  init = () => {                                                         
+    installSW()                                                          
+    alert("Start")
+    if("Notification" in window) {
+      alert("Notification is here.")
+    } else {
+      alert("Nothing...")
+    }
+    Notification.requestPermission()
+    .then((result) => {
+      alert(`THEN ${result}`)
+    })
+    .catch((result) => {
+      alert(`CATCH ${result}`)
+    })
+  }                                                                      
+                                                                       
+  //  サービスワーカーをインストールする。                               
+  installSW = () => {                                                    
+    if('serviceWorker' in navigator) {                                   
+      navigator.serviceWorker.register('./sw.js')             
+      .then(() => {                                                      
+          console.log("Service Worker Registered.")                      
+        }                                                                
+      )                                                                  
+      .finally(() => {                                                   
+          console.log("Service Worker Finished.")                        
+      })                                                                 
+    }                                                                    
   }
-  Notification.requestPermission()
-  .then((result) => {
-    alert(`THEN ${result}`)
-  })
-  .catch((result) => {
-    alert(`CATCH ${result}`)
-  })
+
 </script>
