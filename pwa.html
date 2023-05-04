@@ -2,4 +2,16 @@ PWA
 
 <script>
   alert("Start")
-</script>
+  if("Notification" in window) {
+    alert("Notification is here.")
+  } else {
+    alert("Noting...")
+  }
+  Notification.requestPermission()
+  .then((result) => {
+    alert(`THEN ${result}`)
+  })
+  .catch((result) => {
+    alert(`CATCH ${result}`)
+  })
+ </script>
