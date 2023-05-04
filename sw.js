@@ -8,7 +8,7 @@ self.addEventListener('install', (e) => {
   e.waitUntil(                                                         
     caches.open(cacheName).then((c) => {                               
       console.log('Service Worker caching app shell')                  
-      return c.addAll(filesToCache)                                    
+      return                                    
     })                                                                 
   ) 
 })
