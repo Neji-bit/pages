@@ -3,7 +3,7 @@
     "theme_color": "orange",
     "background_color": "orange",
     "scope": "/",
-    "start_url": "/",
+    "start_url": "/pages/",
     "name": "NejiTest",
     "short_name": "NT",
     "description": "Neji Test.",
