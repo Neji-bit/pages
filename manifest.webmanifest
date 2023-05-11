@@ -2,7 +2,7 @@
     "display": "standalone",                                     
     "theme_color": "orange",
     "background_color": "orange",
-    "scope": "/",
+    "scope": "/pages/",
     "start_url": "/pages/",
     "name": "NejiTest",
     "short_name": "NT",
