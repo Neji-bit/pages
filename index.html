@@ -1,9 +1,9 @@
 <html>
   <script>
 
-    window.onload = () => { init() }                                       
-    init = () => {                                                         
-      installSW()                                                          
+    window.onload = () => { init() }
+    init = () => {
+      installSW()
 
       //  通知の許可を求める。
       //  途中のステップをアラートで可視化。
@@ -11,9 +11,9 @@
         alert("START")
         //  環境が通知に対応しているか？
         if("Notification" in window) {
-          alert("Notification is here.")
+          alert("この環境には通知機能があります。 Notification is here.")
         } else {
-          alert("Nothing...")
+          alert("この環境には通知機能がありません。 Notification is nothing...")
         }
         //  通知の許可を求める。
         Notification.requestPermission()
@@ -35,31 +35,32 @@
       button_reload.addEventListener("click", (e) => {
         location.reload()
       })
-    }                                                                      
-                                                                         
-    //  サービスワーカーをインストールする。                               
-    installSW = () => {                                                    
-      if('serviceWorker' in navigator) {                                   
-        navigator.serviceWorker.register('./sw.js')             
-        .then(() => {                                                      
-            console.log("Service Worker Registered.")                      
-          }                                                                
-        )                                                                  
-        .finally(() => {                                                   
-            console.log("Service Worker Finished.")                        
-        })                                                                 
-      }                                                                    
+    }
+
+    //  サービスワーカーをインストールする。
+    installSW = () => {
+      if('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js')
+        .then(() => {
+            console.log("Service Worker Registered.")
+          }
+        )
+        .finally(() => {
+            console.log("Service Worker Finished.")
+        })
+      }
     }
 
   </script>
 
   <style>
-    * {
-      border: 1px solid red;
-    }
     body {
       background: silver;
-      height: 95vh;
+      @media screen and (min-width: 414px) {
+        width: 414px;
+      }
+      border: 3px solid black;
+      padding: 10px;
       display: grid;
       grid-template-rows: auto 1fr;
       font-family: system-ui;
@@ -136,7 +137,7 @@
     </div>
     <div>
       <h3>このページのURL</h3>
-      <img src="/qr.png"/>
+      <img src="./qr.png"/>
     </div>
   </body>
 </html>
