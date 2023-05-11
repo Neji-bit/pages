@@ -57,21 +57,26 @@
       //  実際に通知を飛ばす。
       button_notification.addEventListener("click", (e) => {
         alert("START")
-        alert("case1:")
-        //  MacBook Chrome 上では、コレでローカル通知が出る。
-        new Notification("For Mac Chrome!")
+//        alert("case1:")
+//        //  MacBook Chrome 上では、コレでローカル通知が出る。
+//        //  2023.05.11 確認結果
+//        //    Mac Chrome: 通知でた
+//        //    Mac Safari: 通知でた
+//        //    iPhone PWA: 通知でない
+//        new Notification("For Mac Chrome!")
 
 
-//        // iPhone PWA 上では、コレでローカル通知が出る。
-//        // 振動はしなかった。
-//        navigator.serviceWorker.ready.then((registration) => {
-//          registration.showNotification("バイブレーションの例", {
-//            body: "For iPhone!",
-//            icon: "../images/touch/chrome-touch-icon-192x192.png",
-//            vibrate: [200, 100, 200, 100, 200, 100, 200],
-//            tag: "vibration-sample",
-//          });
-//        });
+        alert("case2:")
+        // iPhone PWA 上では、コレでローカル通知が出る。
+        // 振動はしなかった。
+        navigator.serviceWorker.ready.then((registration) => {
+          registration.showNotification("バイブレーションの例", {
+            body: "For iPhone!",
+            icon: "../images/touch/chrome-touch-icon-192x192.png",
+            vibrate: [200, 100, 200, 100, 200, 100, 200],
+            tag: "vibration-sample",
+          });
+        });
 
 
 //        //  alert("case1.5:")
@@ -146,7 +151,7 @@
     </div>
 
 
-2023年 5月11日 木曜日 17時07分28秒 JST
+2023年 5月11日 木曜日 17時14分24秒 JST
     <div>
       <div>
         <button id="button_confirm">
