@@ -19,6 +19,7 @@ self.addEventListener('activate', function(event) {
 
 self.addEventListener('message', e => {
   console.log(`I got a message from browser. ${e.data}`);
-  showNotification("Hello! I am SW!")
+  console.log(showNotification)
+  console.log(showNotification("Hello! I am SW!"))
 
 });
