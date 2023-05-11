@@ -15,5 +15,6 @@ self.addEventListener('install', (e) => {
 
 self.addEventListener('message', e => {
   console.log(`I got a message from browser. ${e.data}`);
-  new Notification("Hello! I am SW!")
+  showNotification("Hello! I am SW!")
+
 });
