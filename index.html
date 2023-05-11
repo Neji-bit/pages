@@ -1,6 +1,32 @@
 <html>
-  <script>
 
+  <style>
+    body {
+      background: silver;
+      @media screen and (min-width: 414px) {
+        width: 414px;
+      }
+      border: 3px solid black;
+      padding: 10px;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      font-family: system-ui;
+
+      > div:nth-child(2) {
+        display: grid;
+      }
+    }
+    button {
+      width: calc(100% - 20px);
+      height: 60px;
+      font-size: x-large;
+      border: 2px solid black;
+      border-radius: 10px;
+      margin: 10px;
+    }
+  </style>
+
+  <script>
     window.onload = () => { init() }
     init = () => {
       installSW()
@@ -30,10 +56,14 @@
 
       //  実際に通知を飛ばす。
       button_notification.addEventListener("click", (e) => {
-//        alert("START")
-//        alert("case1:")
-//        new Notification("For Mac Chrome!")
-//
+        alert("START")
+        alert("case1:")
+        //  MacBook Chrome 上では、コレでローカル通知が出る。
+        new Notification("For Mac Chrome!")
+
+
+//        // iPhone PWA 上では、コレでローカル通知が出る。
+//        // 振動はしなかった。
 //        navigator.serviceWorker.ready.then((registration) => {
 //          registration.showNotification("バイブレーションの例", {
 //            body: "For iPhone!",
@@ -44,17 +74,14 @@
 //        });
 
 
-        //  alert("case1.5:")
-        //  self.registration.showNotification("SHOW!", {body: "show"})
-
-        alert("case2:")
-        const channel = new MessageChannel()
-        alert(channel)
-        alert(navigator.serviceWorker)
-        alert(navigator.serviceWorker.controller)
-        alert(navigator.serviceWorker.controller.postMessage)
-        navigator.serviceWorker.controller.postMessage('Hi! You are service worker.', [channel.port2])
-        alert("END")
+//        //  alert("case1.5:")
+//        //  self.registration.showNotification("SHOW!", {body: "show"})
+//
+//        alert("case2:")
+//        const channel = new MessageChannel()
+//        alert(navigator.serviceWorker.controller)
+//        navigator.serviceWorker.controller.postMessage('Hi! You are service worker.', [channel.port2])
+//        alert("END")
       })
 
       //  画面の更新。PWAはブラウザみたいにさっとリロードする導線ないので作った。
@@ -78,32 +105,6 @@
     }
 
   </script>
-
-  <style>
-    body {
-      background: silver;
-      @media screen and (min-width: 414px) {
-        width: 414px;
-      }
-      border: 3px solid black;
-      padding: 10px;
-      display: grid;
-      grid-template-rows: auto 1fr;
-      font-family: system-ui;
-
-      > div:nth-child(2) {
-        display: grid;
-      }
-    }
-    button {
-      width: calc(100% - 20px);
-      height: 60px;
-      font-size: x-large;
-      border: 2px solid black;
-      border-radius: 10px;
-      margin: 10px;
-    }
-  </style>
 
   <head>
     <link href="./manifest.webmanifest" rel="manifest">
@@ -145,7 +146,7 @@
     </div>
 
 
-2023年 5月11日 木曜日 16時57分33秒 JST
+2023年 5月11日 木曜日 17時07分28秒 JST
     <div>
       <div>
         <button id="button_confirm">
