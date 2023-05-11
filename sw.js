@@ -13,6 +13,10 @@ self.addEventListener('install', (e) => {
   ) 
 })
 
+self.addEventListener('activate', function(event) {
+    event.waitUntil(self.clients.claim())
+});
+
 self.addEventListener('message', e => {
   console.log(`I got a message from browser. ${e.data}`);
   showNotification("Hello! I am SW!")
