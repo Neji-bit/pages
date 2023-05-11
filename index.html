@@ -82,14 +82,15 @@
 //          });
 //        });
 
-        alert("case3:")
-        self.registration.showNotification("SHOW!")
-//
-//        alert("case2:")
-//        const channel = new MessageChannel()
-//        alert(navigator.serviceWorker.controller)
-//        navigator.serviceWorker.controller.postMessage('Hi! You are service worker.', [channel.port2])
-//        alert("END")
+//        alert("case3:")
+//        //  これはどの環境でも動かなかった。ボツ。
+//        self.registration.showNotification("SHOW!")
+
+        alert("case4:")
+        const channel = new MessageChannel()
+        alert(navigator.serviceWorker.controller)
+        navigator.serviceWorker.controller.postMessage('Hi! You are service worker.', [channel.port2])
+        alert("END")
       })
 
       //  画面の更新。PWAはブラウザみたいにさっとリロードする導線ないので作った。
@@ -154,7 +155,7 @@
     </div>
 
 
-2023年 5月11日 木曜日 17時19分43秒 JST
+2023年 5月11日 木曜日 17時23分35秒 JST
     <div>
       <div>
         <button id="button_confirm">
