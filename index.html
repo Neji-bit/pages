@@ -32,11 +32,11 @@
       button_notification.addEventListener("click", (e) => {
         alert("START")
         alert("case1:")
-//        alert(new Notification("Hello! I am Web!"))
+        new Notification("For Mac Chrome!")
 
         navigator.serviceWorker.ready.then((registration) => {
           registration.showNotification("バイブレーションの例", {
-            body: "ブンブン! ブンブン!",
+            body: "For iPhone!",
             icon: "../images/touch/chrome-touch-icon-192x192.png",
             vibrate: [200, 100, 200, 100, 200, 100, 200],
             tag: "vibration-sample",
@@ -140,6 +140,7 @@
       </ul>
     </div>
 
+2023年 5月11日 木曜日 16時11分18秒 JST
     <div>
       <div>
         <button id="button_confirm">
