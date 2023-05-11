@@ -5,26 +5,34 @@
   </head>
   <body>
     PWA
+    <button id="button_confirm">
+      Let's Confirm!
+    </button>
   </body>
 
 
   
 <script>
+
   window.onload = () => { init() }                                       
   init = () => {                                                         
     installSW()                                                          
-    alert("Start")
-    if("Notification" in window) {
-      alert("Notification is here.")
-    } else {
-      alert("Nothing...")
-    }
-    Notification.requestPermission()
-    .then((result) => {
-      alert(`THEN ${result}`)
-    })
-    .catch((result) => {
-      alert(`CATCH ${result}`)
+
+    console.log(button_confirm)
+    button_confirm.addEventListener("click", (e) => {
+      alert("Start")
+      if("Notification" in window) {
+        alert("Notification is here.")
+      } else {
+        alert("Nothing...")
+      }
+      Notification.requestPermission()
+      .then((result) => {
+        alert(`THEN ${result}`)
+      })
+      .catch((result) => {
+        alert(`CATCH ${result}`)
+      })
     })
   }                                                                      
                                                                        
