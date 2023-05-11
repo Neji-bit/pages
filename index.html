@@ -49,6 +49,10 @@
 
         alert("case2:")
         const channel = new MessageChannel()
+        alert(channel)
+        alert(navigator.serviceWorker)
+        alert(navigator.serviceWorker.controller)
+        alert(navigator.serviceWorker.controller.postMessage)
         navigator.serviceWorker.controller.postMessage('Hi! You are service worker.', [channel.port2])
         alert("END")
       })
@@ -141,7 +145,7 @@
     </div>
 
 
-2023年 5月11日 木曜日 16時29分46秒 JST
+2023年 5月11日 木曜日 16時34分15秒 JST
     <div>
       <div>
         <button id="button_confirm">
