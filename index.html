@@ -23,12 +23,19 @@
         .catch((result) => {
           alert(`CATCH : ${result}`)
         })
-        alert("END")
+        .finally(() => {
+          alert("END")
+        })
       })
 
       //  実際に通知を飛ばす。
       button_notification.addEventListener("click", (e) => {
-        new Notification("Hello! How are you ?")
+        //  alert(new Notification("Hello! How are you ?"))
+
+        alert("START")
+        const channel = new MessageChannel()
+        navigator.serviceWorker.controller.postMessage('Hi! You are service worker.', [channel.port2])
+        alert("END")
       })
 
       //  画面の更新。PWAはブラウザみたいにさっとリロードする導線ないので作った。
