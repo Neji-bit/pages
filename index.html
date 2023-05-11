@@ -34,69 +34,61 @@
       //  通知の許可を求める。
       //  途中のステップをアラートで可視化。
       button_confirm.addEventListener("click", (e) => {
-        alert("START")
         //  環境が通知に対応しているか？
         if("Notification" in window) {
-          alert("この環境には通知機能があります。 Notification is here.")
+          alert("この環境には通知機能があります。")
         } else {
-          alert("この環境には通知機能がありません。 Notification is nothing...")
+          alert("この環境には通知機能がありません。")
         }
         //  通知の許可を求める。
         Notification.requestPermission()
         .then((result) => {
-          alert(`Permission state : ${result}`)
+          alert(`通知許可の状態 : ${result}`)
         })
         .catch((result) => {
           alert(`CATCH : ${result}`)
         })
         .finally(() => {
-          alert("END")
         })
       })
 
       //  実際に通知を飛ばす。
-      button_notification.addEventListener("click", (e) => {
-        alert("START")
-//        alert("case1:")
-//        //  MacBook Chrome 上では、コレでローカル通知が出る。
-//        //  2023.05.11 確認結果
-//        //    Mac Chrome: 通知でた
-//        //    Mac Safari: 通知でた
-//        //    iPhone PWA: 通知でない
-//        new Notification("For Mac Chrome!")
+      button_notification_1.addEventListener("click", (e) => {
+        //  MacBook Chrome 上では、コレでローカル通知が出る。
+        //  2023.05.11 確認結果
+        //    Mac Chrome: 通知でた
+        //    Mac Safari: 通知でた
+        //    iPhone PWA: 通知でない
+        alert("実験１ スタート")
+        new Notification("実験１の通知です！")
+        alert("実験１ エンド")
+      })
 
+      button_notification_2.addEventListener("click", (e) => {
+        // iPhone PWA 上では、コレでローカル通知が出る。
+        //  2023.05.11 確認結果
+        //    Mac Chrome: 通知でた
+        //    Mac Safari: 通知でた
+        //    iPhone PWA: 通知でた
+        alert("実験２ スタート")
+        navigator.serviceWorker.ready.then((registration) => {
+          registration.showNotification("実験２の通知です！", {
+            body: "通知ボディ",
+          })
+        })
+        alert("実験２ エンド")
+      })
 
-//        alert("case2:")
-//        // iPhone PWA 上では、コレでローカル通知が出る。
-//        // 振動はしなかった。
-//        //  2023.05.11 確認結果
-//        //    Mac Chrome: 通知でた
-//        //    Mac Safari: 通知でた
-//        //    iPhone PWA: 通知でた
-//        navigator.serviceWorker.ready.then((registration) => {
-//          registration.showNotification("バイブレーションの例", {
-//            body: "For iPhone!",
-//            icon: "../images/touch/chrome-touch-icon-192x192.png",
-//            vibrate: [200, 100, 200, 100, 200, 100, 200],
-//            tag: "vibration-sample",
-//          });
-//        });
-
-//        alert("case3:")
-//        //  これはどの環境でも動かなかった。ボツ。
-//        self.registration.showNotification("SHOW!")
-
-        alert("case4:")
-        //  これがおそらく最適解！
+      button_notification_3.addEventListener("click", (e) => {
         //  ServiceWorkerからローカル通知を出す。
         //  2023.05.11 確認結果
         //    Mac Chrome: 通知でた
         //    Mac Safari: 通知でた
         //    iPhone PWA: 通知でた
+        alert("実験３ スタート")
         const channel = new MessageChannel()
-        alert(navigator.serviceWorker.controller)
-        navigator.serviceWorker.controller.postMessage('Hi! You are service worker.', [channel.port2])
-        alert("END")
+        navigator.serviceWorker.controller.postMessage('実験３の通知です！', [channel.port2])
+        alert("実験３ エンド")
       })
 
       //  画面の更新。PWAはブラウザみたいにさっとリロードする導線ないので作った。
@@ -137,7 +129,12 @@
 
       <h3> はじめに： </h3>
       <p>
-        上記の環境で、PWAからiPhoneに「ローカル通知」を送れるか？を検証するページです。
+        上記の環境で、PWAからiPhoneに「ローカル通知」を送れるか？を検証するページです。<br/>
+        <br/>
+        対になるドキュメントは以下になります：<br/>
+        <br/>
+        [note] <a href="https://note.com/neji_bit/n/nca6cf8b2d2d2">【実験】iOS16.4_PWAで「ローカル通知」はできるのか！？【結果あり】 </a>
+
       </p>
 
       <h3> 確認方法： </h3>
@@ -146,39 +143,46 @@
         <li> 「うまくいく環境」であれば、iPhone上で通知が飛びます。
       </ul>
 
-      <h3> ポイント： </h3>
-      <ul>
-        <li> 「通知の許可を求めるタイミング」には注意点があるよ。
-          <ul>
-            <li> window.onload の中で Notification.requestPermission() をしても効かない。
-              <ul>
-                <li> （MacBook上の Safari, Chrome では効くのにiPhoneだと効かない）
-                <li> iPhoneの場合は、このページのように「ボタンクリック等のアクションに紐付いて」通知の許可を求めればOK。
-              </ul>
-          </ul>
-        <li> 「リマインダー通知」等は、サーバなしでPWA自力で通知できるよ。
-      </ul>
     </div>
 
-
-2023年 5月11日 木曜日 17時44分07秒 JST
     <div>
       <div>
+        <h4> 事前準備 </h4>
         <button id="button_confirm">
           通知の許可を求めるよ！
         </button>
       </div>
+
       <div>
-        <button id="button_notification">
+        <h4> 実験1： "new Notification" で通知
+        ※ iPhone では飛ばない
+        <button id="button_notification_1">
           ローカルで通知を送るよ！
         </button>
-        ※ 10秒後にローカル通知が飛びます！
       </div>
+
       <div>
+        <h4> 実験２： "showNotification" で通知
+        <button id="button_notification_2">
+          ローカルで通知を送るよ！
+        </button>
+      </div>
+
+      <div>
+        <h4> 実験３： "10秒後にshowNotification" で通知
+        <button id="button_notification_3">
+          ローカルで通知を送るよ！
+        </button>
+        ※ボタンを押して10秒後にローカル通知が飛びます。
+      </div>
+
+      <div>
+        <h4> おまけ </h4>
         <button id="button_reload">
           画面をリロードするよ！
         </button>
       </div>
+
     </div>
     <div>
       <h3>このページのURL</h3>

@@ -19,6 +19,8 @@ self.addEventListener('activate', function(event) {
 
 self.addEventListener('message', e => {
   setTimeout(() => {
-    self.registration.showNotification("10秒たったよ！こんにちわServiceWorkerです！")
+    self.registration.showNotification("実験３の通知です！", {
+      body: "サービスワーカーです！"
+    })
   }, "10000")
 })
