@@ -30,9 +30,11 @@
 
       //  実際に通知を飛ばす。
       button_notification.addEventListener("click", (e) => {
+        alert("START")
+        alert("case1:")
         alert(new Notification("Hello! I am Web!"))
 
-        alert("START")
+        alert("case2:")
         const channel = new MessageChannel()
         navigator.serviceWorker.controller.postMessage('Hi! You are service worker.', [channel.port2])
         alert("END")
