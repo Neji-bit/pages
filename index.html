@@ -87,6 +87,12 @@
 //        self.registration.showNotification("SHOW!")
 
         alert("case4:")
+        //  これがおそらく最適解！
+        //  ServiceWorkerからローカル通知を出す。
+        //  2023.05.11 確認結果
+        //    Mac Chrome: 通知でた
+        //    Mac Safari: 通知でた
+        //    iPhone PWA: 通知でた
         const channel = new MessageChannel()
         alert(navigator.serviceWorker.controller)
         navigator.serviceWorker.controller.postMessage('Hi! You are service worker.', [channel.port2])
@@ -155,7 +161,7 @@
     </div>
 
 
-2023年 5月11日 木曜日 17時29分44秒 JST
+2023年 5月11日 木曜日 17時44分07秒 JST
     <div>
       <div>
         <button id="button_confirm">
@@ -177,5 +183,10 @@
       <h3>このページのURL</h3>
       <img src="./qr.png"/>
     </div>
+    <div>
+      <h3>ソースコード（検証コメントあり）</h3>
+      <a href="https://github.com/Neji-bit/pages"> Github </a>
+    </div>
+
   </body>
 </html>

@@ -18,10 +18,7 @@ self.addEventListener('activate', function(event) {
 });
 
 self.addEventListener('message', e => {
-  console.log("SW work start!")
-  console.log(`I got a message from browser. ${e.data}`);
-  console.log(self.registration.showNotification)
-  console.log(self.registration.showNotification("Hello! I am SW!"))
-  console.log("return from sw.")
-
-});
+  setTimeout(() => {
+    self.registration.showNotification("10秒たったよ！こんにちわServiceWorkerです！")
+  }, "10000")
+})
