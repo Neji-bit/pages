@@ -1,55 +1,142 @@
 <html>
+  <script>
+
+    window.onload = () => { init() }                                       
+    init = () => {                                                         
+      installSW()                                                          
+
+      //  通知の許可を求める。
+      //  途中のステップをアラートで可視化。
+      button_confirm.addEventListener("click", (e) => {
+        alert("START")
+        //  環境が通知に対応しているか？
+        if("Notification" in window) {
+          alert("Notification is here.")
+        } else {
+          alert("Nothing...")
+        }
+        //  通知の許可を求める。
+        Notification.requestPermission()
+        .then((result) => {
+          alert(`Permission state : ${result}`)
+        })
+        .catch((result) => {
+          alert(`CATCH : ${result}`)
+        })
+        alert("END")
+      })
+
+      //  実際に通知を飛ばす。
+      button_notification.addEventListener("click", (e) => {
+        new Notification("Hello! How are you ?")
+      })
+
+      //  画面の更新。PWAはブラウザみたいにさっとリロードする導線ないので作った。
+      button_reload.addEventListener("click", (e) => {
+        location.reload()
+      })
+    }                                                                      
+                                                                         
+    //  サービスワーカーをインストールする。                               
+    installSW = () => {                                                    
+      if('serviceWorker' in navigator) {                                   
+        navigator.serviceWorker.register('./sw.js')             
+        .then(() => {                                                      
+            console.log("Service Worker Registered.")                      
+          }                                                                
+        )                                                                  
+        .finally(() => {                                                   
+            console.log("Service Worker Finished.")                        
+        })                                                                 
+      }                                                                    
+    }
+
+  </script>
+
+  <style>
+    * {
+      border: 1px solid red;
+    }
+    body {
+      background: silver;
+      height: 95vh;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      font-family: system-ui;
+
+      > div:nth-child(2) {
+        display: grid;
+      }
+    }
+    button {
+      width: calc(100% - 20px);
+      height: 60px;
+      font-size: x-large;
+      border: 2px solid black;
+      border-radius: 10px;
+      margin: 10px;
+    }
+  </style>
 
   <head>
     <link href="./manifest.webmanifest" rel="manifest">
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
   </head>
   <body>
-    PWA
-    <button id="button_confirm">
-      Let's Confirm!
-    </button>
+    <div>
+      <h1> iPhone iOS16.4以上用 </h1>
+      <h2> PWAローカル通知 動作検証ページ </h2>
+
+      <p>
+        Written by: Neji.bit ( Twitter: @Neji83808822 )
+      </p>
+
+      <h3> はじめに： </h3>
+      <p>
+        上記の環境で、PWAからiPhoneに「ローカル通知」を送れるか？を検証するページです。
+      </p>
+
+      <h3> 確認方法： </h3>
+      <ul>
+        <li> 上から順にボタンを押して行ってください。
+        <li> 「うまくいく環境」であれば、iPhone上で通知が飛びます。
+      </ul>
+
+      <h3> ポイント： </h3>
+      <ul>
+        <li> 「通知の許可を求めるタイミング」には注意点があるよ。
+          <ul>
+            <li> window.onload の中で Notification.requestPermission() をしても効かない。
+              <ul>
+                <li> （MacBook上の Safari, Chrome では効くのにiPhoneだと効かない）
+                <li> iPhoneの場合は、このページのように「ボタンクリック等のアクションに紐付いて」通知の許可を求めればOK。
+              </ul>
+          </ul>
+        <li> 「リマインダー通知」等は、サーバなしでPWA自力で通知できるよ。
+      </ul>
+    </div>
+
+    <div>
+      <div>
+        <button id="button_confirm">
+          通知の許可を求めるよ！
+        </button>
+      </div>
+      <div>
+        <button id="button_notification">
+          ローカルで通知を送るよ！
+        </button>
+      </div>
+      <div>
+        <button id="button_reload">
+          画面をリロードするよ！
+        </button>
+      </div>
+    </div>
+    <div>
+      <h3>このページのURL</h3>
+      <img src="/qr.png"/>
+    </div>
   </body>
-
-
-  
-<script>
-
-  window.onload = () => { init() }                                       
-  init = () => {                                                         
-    installSW()                                                          
-
-    console.log(button_confirm)
-    button_confirm.addEventListener("click", (e) => {
-      alert("Start")
-      if("Notification" in window) {
-        alert("Notification is here.")
-      } else {
-        alert("Nothing...")
-      }
-      Notification.requestPermission()
-      .then((result) => {
-        alert(`THEN ${result}`)
-      })
-      .catch((result) => {
-        alert(`CATCH ${result}`)
-      })
-    })
-  }                                                                      
-                                                                       
-  //  サービスワーカーをインストールする。                               
-  installSW = () => {                                                    
-    if('serviceWorker' in navigator) {                                   
-      navigator.serviceWorker.register('./sw.js')             
-      .then(() => {                                                      
-          console.log("Service Worker Registered.")                      
-        }                                                                
-      )                                                                  
-      .finally(() => {                                                   
-          console.log("Service Worker Finished.")                        
-      })                                                                 
-    }                                                                    
-  }
-
-</script>
-
 </html>
